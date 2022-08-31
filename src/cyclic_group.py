@@ -7,12 +7,12 @@ class CyclicGroup(AbstractGroup):
     def __init__(self, order: int) -> None:
         assert (order >= 1, "order must be positive integer")
         self._order = order
-        self._elements = []
+        self._elements = [Integer(i) for i in range(order)]
         self._op = Modulo(order-1)
         self._e = Integer(0)
 
     def eye(self) -> GroupElement:
-        pass
+        return self._e
 
     def inverse(self, g: GroupElement) -> GroupElement:
         pass
@@ -36,8 +36,11 @@ class CyclicGroup(AbstractGroup):
         sgs = self.nontrivial_subgroups()
         return sgs
 
-    def elements(self) -> [GroupElement]:
+    def elements(self) -> [Integer]:
         return self._elements
+
+    def bop(self, g: Integer, h: Integer) -> GroupElement:
+        return self._op.op(g, h)
 
     def visualize(self):
         pass

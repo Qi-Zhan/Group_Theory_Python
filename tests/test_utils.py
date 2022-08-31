@@ -11,5 +11,13 @@ class IsPrimeTest(unittest.TestCase):
         self.assertEqual(is_prime(49), False)
 
 
+class PermuteTest(unittest.TestCase):
+    def test_basic(self):
+        f = (1, 3, 2)
+        g = (2, 1, 3)
+        self.assertEqual((2, 3, 1), permute(f, g))
+        self.assertEqual((3, 1, 2), permute(g, f))
+
+
 if __name__ == '__main__':
     unittest.main()

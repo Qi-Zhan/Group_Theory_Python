@@ -1,6 +1,8 @@
 from __future__ import annotations
 from abc import abstractmethod, ABC
 
+from typing import Tuple
+
 
 class GroupElement(ABC):
     @abstractmethod
@@ -23,6 +25,18 @@ class Integer(GroupElement):
     def __str__(self):
         return str(self._i)
 
-class Permute(GroupElement):
-    pass
+
+class Permutation(GroupElement):
+    def __init__(self, p: Tuple[int]):
+        self._p = p
+
+    def value(self) -> Tuple[int]:
+        return self._p
+
+    def __eq__(self, other):
+        if isinstance(other, Permutation):
+            return other.value() == self.value()
+
+    def __str__(self):
+        return str(self._p)
 

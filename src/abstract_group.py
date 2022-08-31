@@ -15,7 +15,9 @@ class AbstractGroup(ABC):
     def inverse(self, g: GroupElement) -> GroupElement:
         pass
 
-
+    @abstractmethod
+    def bop(self, g: GroupElement, h: GroupElement) -> GroupElement:
+        pass
 
     @abstractmethod
     def order(self) -> int:
@@ -49,4 +51,3 @@ class AbstractGroup(ABC):
     @abstractmethod
     def visualize(self):
         pass
-
