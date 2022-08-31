@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from abc import abstractmethod, ABC
+
 from group_element import GroupElement
 
 
@@ -8,6 +10,12 @@ class AbstractGroup(ABC):
     @abstractmethod
     def eye(self) -> GroupElement:
         pass
+
+    @abstractmethod
+    def inverse(self, g: GroupElement) -> GroupElement:
+        pass
+
+
 
     @abstractmethod
     def order(self) -> int:

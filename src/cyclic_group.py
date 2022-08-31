@@ -1,15 +1,20 @@
-from abstract_group import AbstractGroup
-from group_element import GroupElement
+from .abstract_group import AbstractGroup
+from .group_element import GroupElement, Integer
+from .binaryop import Modulo
 
 
 class CyclicGroup(AbstractGroup):
-
     def __init__(self, order: int) -> None:
         assert (order >= 1, "order must be positive integer")
         self._order = order
         self._elements = []
+        self._op = Modulo(order-1)
+        self._e = Integer(0)
 
     def eye(self) -> GroupElement:
+        pass
+
+    def inverse(self, g: GroupElement) -> GroupElement:
         pass
 
     def order(self) -> int:
@@ -28,7 +33,7 @@ class CyclicGroup(AbstractGroup):
         pass
 
     def nontrivial_subgroups(self) -> [AbstractGroup]:
-        sgs:[AbstractGroup] = self.nontrivial_subgroups()
+        sgs = self.nontrivial_subgroups()
         return sgs
 
     def elements(self) -> [GroupElement]:
