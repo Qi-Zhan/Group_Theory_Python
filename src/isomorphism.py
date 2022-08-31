@@ -1,6 +1,7 @@
 from typing import Dict
-from .abstract_group import GroupElement, AbstractGroup
+from .group import Group
+from .group_element import GroupElement
 
 
-def check_isomorphism(maps: Dict[GroupElement, GroupElement], G: AbstractGroup, H: AbstractGroup) -> bool:
+def check_isomorphism(maps: Dict[GroupElement, GroupElement], G: Group, H: Group) -> bool:
     return False

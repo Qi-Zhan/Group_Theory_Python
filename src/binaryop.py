@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from .group_element import Integer, GroupElement
+from .group_element import Integer, GroupElement, Permutation
+from .utils import permute
 
 
 class Operator(ABC):
@@ -16,4 +17,7 @@ class Modulo(Operator):
         return Integer((g.value() + h.value()) % self._m)
 
 
+class Permute(Operator):
 
+    def op(self, g: Permutation, h: Permutation) -> Permutation:
+        return Permutation(permute(g.value(), h.value()))

@@ -1,36 +1,29 @@
-from abc import ABC, abstractmethod
 from typing import Dict
 from .group_element import GroupElement
-from .abstract_group import AbstractGroup
+from .group import Group
 
 
-class Homomorphism(ABC):
+class Homomorphism:
     """ homomorphism  G -> H
     """
 
-    @abstractmethod
     def map(self) -> Dict[GroupElement, GroupElement]:
         pass
 
-    @abstractmethod
     def kernel(self) -> GroupElement:
         pass
 
-    @abstractmethod
     def image(self) -> [GroupElement]:
         pass
 
-    @abstractmethod
     def maps_to(self, g: GroupElement) -> GroupElement:
         pass
 
-    @abstractmethod
-    def G(self) -> AbstractGroup:
+    def G(self) -> Group:
         pass
 
-    def H(self) -> AbstractGroup:
+    def H(self) -> Group:
         pass
 
-
-def check_homomorphism(maps: Dict[GroupElement, GroupElement], G: AbstractGroup, H: AbstractGroup) -> bool:
-    return False
+    def check_homomorphism(self, maps: Dict[GroupElement, GroupElement], G: Group, H: Group) -> bool:
+        pass

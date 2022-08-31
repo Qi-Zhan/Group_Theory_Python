@@ -1,7 +1,9 @@
 from itertools import permutations
-from .abstract_group import AbstractGroup
+from .group import Group
 from .group_element import Permutation
+from .binaryop import Permute
 
 
-class SymmetricGroup(AbstractGroup):
+class SymmetricGroup(Group):
+
     pass
