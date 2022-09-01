@@ -62,14 +62,16 @@ class Group:
         pass
 
     def subgroups(self) -> [Group]:
-        pass
+        return [self]
 
     def normal_subgroups(self) -> [Group]:
-        pass
+        if self.is_abel():
+            return self.subgroups()
+        else:
+            raise NotImplemented
 
     def nontrivial_subgroups(self) -> [Group]:
-        sgs = self.nontrivial_subgroups()
-        return sgs
+        return [g for g in self.subgroups() if g.order() != 1 and g.order() != self.order()]
 
     def elements(self) -> Set[GroupElement]:
         return self._s
@@ -79,6 +81,13 @@ class Group:
 
     def visualize(self):
         pass
+
+    def is_abel(self):
+        for i in self._s:
+            for j in self._s:
+                if self._op(i, j) != self._op(j, i):
+                    return False
+        return True
 
     def __str__(self):
         return "Z(" + str(self.order()) + ")"

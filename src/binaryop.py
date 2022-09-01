@@ -10,11 +10,15 @@ class Operator(ABC):
 
 
 class Modulo(Operator):
-    def __init__(self, m: int):
+    def __init__(self, m: int, c="PLUS"):
         self._m = m
+        if c == "PLUS":
+            self._op = lambda x, y: (x + y) % self._m
+        elif c == "MULTI":
+            self._op = lambda x, y: (x * y) % self._m
 
     def op(self, g: Integer, h: Integer) -> Integer:
-        return Integer((g.value() + h.value()) % self._m)
+        return Integer(self._op(g.value(), h.value()))
 
 
 class Permute(Operator):

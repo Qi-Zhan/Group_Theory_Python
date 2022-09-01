@@ -19,5 +19,11 @@ class PermuteTest(unittest.TestCase):
         self.assertEqual((3, 1, 2), permute(g, f))
 
 
+class FactorTest(unittest.TestCase):
+    def test_basic(self):
+        self.assertEqual(factor(2), [1, 2])
+        self.assertEqual(factor(10), [1, 2, 5, 10])
+
+
 if __name__ == '__main__':
     unittest.main()

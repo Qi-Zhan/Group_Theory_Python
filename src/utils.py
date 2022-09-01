@@ -11,6 +11,11 @@ def is_prime(n: int) -> bool:
     return True
 
 
+def factor(n: int) -> List[int]:
+    assert n >= 1
+    return [i for i in range(1, n + 1) if n % i == 0]
+
+
 def permute(f: Tuple[int, ...], g: Tuple[int, ...]) -> Tuple[int, ...]:
     """ return f(g())
     """

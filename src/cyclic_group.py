@@ -10,4 +10,8 @@ class CyclicGroup(Group):
         super(CyclicGroup, self).__init__(s, Modulo(order), Integer(0))
 
     def subgroups(self) -> [Group]:
+
         pass
+
+    def is_abel(self):
+        return True
