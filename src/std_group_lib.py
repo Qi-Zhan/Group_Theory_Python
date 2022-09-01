@@ -3,12 +3,14 @@ This file provides some basic group implemented by group.py
 * CyclicGroup
 G = (a)
 * SymmetricGroup
+* ProductGroup
+* QuotientGroup
 ...
 """
 from .group import Group
-from .group_element import GroupElement, Integer
-from .binaryop import Modulo
-from .utils import factor
+from .group_element import GroupElement, Integer, Permutation
+from .binaryop import Modulo, Operator
+from .utils import factor, permute
 
 
 class CyclicGroup(Group):
@@ -30,3 +32,15 @@ class CyclicGroup(Group):
 
 class SymmetricGroup(Group):
     pass
+
+
+class ProductGroup(Group):
+    def __init__(self, groups: [Group]):
+        # TODO
+        pass
+
+
+class QuotientGroup(Group):
+    def __init__(self):
+        # TODO
+        pass

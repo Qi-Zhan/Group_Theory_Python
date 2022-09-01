@@ -7,10 +7,14 @@ to produce a third element of the set which satisfies:
 2) for any element g exists inverse g-1 s.t. g g-1 = g-1 g = e
 """
 from __future__ import annotations
+
+import numpy as np
+
 from .binaryop import Operator
 from .group_element import GroupElement
-from typing import Set, List
+from typing import Set, List, Tuple
 from .utils import power_set
+import matplotlib.pyplot as plt
 
 
 class Group:
@@ -74,12 +78,29 @@ class Group:
         """
         return len(self._s)
 
-    def table(self):
+    def table(self) -> Tuple[List[List[str]], List[str], List[str]]:
         l_set = list(self._s)
+        compute = []
+        for i in l_set:
+            temp = []
+            for j in l_set:
+                temp.append(str(self._op(i, j)))
+            compute.append(temp)
+        l_str = [str(i) for i in l_set]
+        return compute, l_str, l_str
 
     def print_table(self) -> None:
-
-        pass
+        fig, ax = plt.subplots()
+        fig.patch.set_visible(False)
+        ax.axis('off')
+        ax.axis('tight')
+        cell_text, row_header, col_header = self.table()
+        rcolor = plt.cm.BuPu(np.full(len(row_header), 0.1))
+        ccolor = plt.cm.BuPu(np.full(len(col_header), 0.1))
+        ax.table(cellText=cell_text, rowLabels=row_header, colLabels=col_header,
+                 rowColours=rcolor, colColours=ccolor, cellLoc='center', loc='center')
+        fig.tight_layout()
+        plt.show()
 
     def subgroups(self) -> [Group]:
         """
