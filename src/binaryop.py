@@ -29,6 +29,14 @@ class Modulo(Operator):
                 return True
         return False
 
+    def __str__(self):
+        if self._c == "PLUS":
+            return "+ mod " + str(self._m)
+        elif self._c == "MULTI":
+            return "* mod " + str(self._m)
+        else:
+            raise NotImplemented
+
 
 class Permute(Operator):
 
@@ -39,3 +47,6 @@ class Permute(Operator):
         if isinstance(other, Permute):
             return True
         return False
+
+    def __str__(self):
+        return "permutation"

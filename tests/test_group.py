@@ -1,6 +1,6 @@
 import unittest
 from src.group import Group
-from src.cyclic_group import CyclicGroup
+from src.std_group_lib import CyclicGroup
 from src.group_element import Integer
 from src.binaryop import Modulo
 

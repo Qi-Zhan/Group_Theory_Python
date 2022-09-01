@@ -12,10 +12,10 @@ class Group:
         self._s = s
         self._bop = bop
         self._op = bop.op
-        self.check_closed()
         self.check_e()
-        self.check_assoc()
         self.check_inverse()
+        self.check_closed()
+        # self.check_assoc()
 
     def check_closed(self):
         for i in self._s:
