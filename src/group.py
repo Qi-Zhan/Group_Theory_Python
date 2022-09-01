@@ -1,13 +1,16 @@
 from __future__ import annotations
 from .binaryop import Operator
 from .group_element import GroupElement
-from typing import Set
+from typing import Set, List
+from .utils import power_set
 
 
 class Group:
     def __init__(self, s: Set[GroupElement], bop: Operator, e: GroupElement):
+        assert e in s
         self._e = e
         self._s = s
+        self._bop = bop
         self._op = bop.op
         self.check_closed()
         self.check_e()
@@ -62,7 +65,15 @@ class Group:
         pass
 
     def subgroups(self) -> [Group]:
-        return [self]
+        l: List[Group] = []
+        for s in power_set(self._s):
+            try:
+                g = Group(set(s), self._bop, self._e)
+            except AssertionError:
+                continue
+            else:
+                l.append(g)
+        return l
 
     def normal_subgroups(self) -> [Group]:
         if self.is_abel():
@@ -90,4 +101,17 @@ class Group:
         return True
 
     def __str__(self):
-        return "Z(" + str(self.order()) + ")"
+        s = [str(e) for e in self._s]
+        return "{" + ",".join(s) + "}"
+
+    def __eq__(self, other):
+        if isinstance(other, Group):
+            if other.order() != self.order():
+                return False
+            if other._bop != self._bop:
+                return False
+            for element in self._s:
+                if element not in other._s:
+                    return False
+            return True
+        return False

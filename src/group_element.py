@@ -40,6 +40,9 @@ class Permutation(GroupElement):
         if isinstance(other, Permutation):
             return other.value() == self.value()
 
+    def __hash__(self):
+        return hash(self._p)
+
     def __str__(self):
         return str(self._p)
 

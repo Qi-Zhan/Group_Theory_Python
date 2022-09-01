@@ -1,5 +1,8 @@
 import math
-from typing import Tuple, List, Any
+from typing import Tuple, List, Set
+from itertools import chain, combinations
+
+from src.group_element import GroupElement
 
 
 def is_prime(n: int) -> bool:
@@ -26,3 +29,9 @@ def permute(f: Tuple[int, ...], g: Tuple[int, ...]) -> Tuple[int, ...]:
     for order, i in enumerate(f):
         res.insert(order, g[i - 1])
     return tuple(res)
+
+
+def power_set(s: Set[GroupElement]) -> Set[Tuple[GroupElement, ...]]:
+    s = list(s)
+    pt = chain.from_iterable(set(combinations(s, r)) for r in range(len(s)+1))
+    return set(pt)

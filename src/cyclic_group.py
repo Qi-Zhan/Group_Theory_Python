@@ -15,3 +15,6 @@ class CyclicGroup(Group):
 
     def is_abel(self):
         return True
+
+    def __str__(self):
+        return "Z(" + str(self.order()) + ")"
