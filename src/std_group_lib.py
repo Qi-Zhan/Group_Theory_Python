@@ -1,3 +1,10 @@
+"""
+This file provides some basic group implemented by group.py
+* CyclicGroup
+G = (a)
+* SymmetricGroup
+...
+"""
 from .group import Group
 from .group_element import GroupElement, Integer
 from .binaryop import Modulo

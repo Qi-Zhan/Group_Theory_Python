@@ -1,3 +1,11 @@
+"""
+This file provides a general group class.
+Generally, a group is a set and an operation that combines tow elements of the set
+to produce a third element of the set which satisfies:
+0) associativity: (gh)j = g(hj)
+1) exists identity e: ge = eg = g
+2) for any element g exists inverse g-1 s.t. g g-1 = g-1 g = e
+"""
 from __future__ import annotations
 from .binaryop import Operator
 from .group_element import GroupElement
@@ -7,6 +15,12 @@ from .utils import power_set
 
 class Group:
     def __init__(self, s: Set[GroupElement], bop: Operator, e: GroupElement):
+        """
+        Check the set and corresponding operation satisfy the condition to be a group
+        :param s: set of elements
+        :param bop: binary operation
+        :param e: identity
+        """
         assert e in s
         self._e = e
         self._s = s
@@ -55,6 +69,9 @@ class Group:
         assert 0, "unreachable"
 
     def order(self) -> int:
+        """
+        The number of elements in a group is called the order of the group
+        """
         return len(self._s)
 
     def table(self):
@@ -65,6 +82,10 @@ class Group:
         pass
 
     def subgroups(self) -> [Group]:
+        """
+
+        :return: all subgroups in this group by brute force
+        """
         l: List[Group] = []
         for s in power_set(self._s):
             try:
@@ -94,11 +115,26 @@ class Group:
         pass
 
     def is_abel(self):
+        """
+        A group is called abel group if for all a, b in group, ab = ba (commutativity)
+        :return:
+        """
         for i in self._s:
             for j in self._s:
                 if self._op(i, j) != self._op(j, i):
                     return False
         return True
+
+    def generate(self, generators: [GroupElement]) -> Group:
+        """
+        A
+        :param generators:
+        :return:
+        """
+        # TODO.md
+        for generator in generators:
+            assert generator in self._s
+        return self
 
     def __str__(self):
         s = [str(e) for e in self._s]
