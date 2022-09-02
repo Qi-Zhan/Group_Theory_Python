@@ -11,6 +11,22 @@ class GroupElement(ABC):
     def value(self):
         pass
 
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __hash__(self):
+        pass
+
+    @abstractmethod
+    def __eq__(self, other):
+        pass
+
 
 class Integer(GroupElement):
     def __init__(self, i: int):
@@ -48,3 +64,20 @@ class Permutation(GroupElement):
     def __str__(self):
         return str(self._p)
 
+
+class Word(GroupElement):
+    def value(self):
+        return self._s
+
+    def __init__(self, s: str):
+        self._s = s
+        pass
+
+    def __str__(self):
+        return self._s
+
+    def __hash__(self):
+        return hash(self._s)
+
+    def __eq__(self, other):
+        pass

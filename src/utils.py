@@ -1,6 +1,6 @@
 import math
 from typing import Tuple, List, Set
-from itertools import chain, combinations
+from itertools import chain, combinations, permutations
 
 from src.group_element import GroupElement
 
@@ -19,6 +19,10 @@ def factor(n: int) -> List[int]:
     return [i for i in range(1, n + 1) if n % i == 0]
 
 
+def all_permutations(n: int) -> [Tuple[int, ...]]:
+    return list(permutations(range(1, n+1), n))
+
+
 def permute(f: Tuple[int, ...], g: Tuple[int, ...]) -> Tuple[int, ...]:
     """ return f(g())
     """
@@ -33,5 +37,5 @@ def permute(f: Tuple[int, ...], g: Tuple[int, ...]) -> Tuple[int, ...]:
 
 def power_set(s: Set[GroupElement]) -> Set[Tuple[GroupElement, ...]]:
     s = list(s)
-    pt = chain.from_iterable(set(combinations(s, r)) for r in range(len(s)+1))
+    pt = chain.from_iterable(set(combinations(s, r)) for r in range(len(s) + 1))
     return set(pt)

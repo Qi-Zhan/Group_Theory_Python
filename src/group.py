@@ -80,6 +80,8 @@ class Group:
 
     def table(self) -> Tuple[List[List[str]], List[str], List[str]]:
         l_set = list(self._s)
+        l_set.remove(self._e)
+        l_set.insert(0, self._e)
         compute = []
         for i in l_set:
             temp = []
@@ -104,7 +106,7 @@ class Group:
 
     def subgroups(self) -> [Group]:
         """
-
+        A subgroup is a subset of group elements of a group, which is a group itself
         :return: all subgroups in this group by brute force
         """
         l: List[Group] = []
@@ -117,11 +119,32 @@ class Group:
                 l.append(g)
         return l
 
+    def left_coset(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
+        """
+        :param g: element
+        :param N: subset
+        :return: gN = {gn : n ∈ N}
+        """
+        return set([self._op(g, n) for n in N])
+
+    def right_coset(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
+        """
+        :param g: element
+        :param N: subset
+        :return: Ng = {ng : n ∈ N}
+        """
+        return set([self._op(g, n) for n in N])
+
+    def cosets(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
+        # todo
+        pass
+
     def normal_subgroups(self) -> [Group]:
         if self.is_abel():
             return self.subgroups()
         else:
-            raise NotImplemented
+            pass
+            # return [g for g in self.subgroups() if g.is_abel()]
 
     def nontrivial_subgroups(self) -> [Group]:
         return [g for g in self.subgroups() if g.order() != 1 and g.order() != self.order()]
@@ -152,7 +175,7 @@ class Group:
         :param generators:
         :return:
         """
-        # TODO.md
+        # TODO
         for generator in generators:
             assert generator in self._s
         return self

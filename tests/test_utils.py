@@ -19,6 +19,16 @@ class PermuteTest(unittest.TestCase):
         self.assertEqual((2, 3, 1), permute(f, g))
         self.assertEqual((3, 1, 2), permute(g, f))
 
+    def test_all_permutations(self):
+        all = all_permutations(3)
+        self.assertEqual(len(all), 6)
+        self.assertIn((1, 2, 3), all)
+        self.assertIn((1, 3, 2), all)
+        self.assertIn((2, 1, 3), all)
+        self.assertIn((2, 3, 1), all)
+        self.assertIn((3, 1, 2), all)
+        self.assertIn((3, 2, 1), all)
+
 
 class FactorTest(unittest.TestCase):
     def test_basic(self):

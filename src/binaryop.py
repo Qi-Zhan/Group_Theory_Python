@@ -11,6 +11,8 @@ class Operator(ABC):
     def op(self, g: GroupElement, h: GroupElement) -> GroupElement:
         pass
 
+# class
+
 
 class Modulo(Operator):
     def __init__(self, m: int, c="PLUS"):
