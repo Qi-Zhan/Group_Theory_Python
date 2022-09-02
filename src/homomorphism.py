@@ -6,6 +6,8 @@ from .group import Group
 class Homomorphism:
     """ homomorphism  G -> H
     """
+    def __init__(self):
+        pass
 
     def map(self) -> Dict[GroupElement, GroupElement]:
         pass

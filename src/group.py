@@ -1,23 +1,23 @@
-"""
-This file provides a general group class.
-Generally, a group is a set and an operation that combines tow elements of the set
-to produce a third element of the set which satisfies:
-0) associativity: (gh)j = g(hj)
-1) exists identity e: ge = eg = g
-2) for any element g exists inverse g-1 s.t. g g-1 = g-1 g = e
-"""
 from __future__ import annotations
 
 import numpy as np
 
 from .binaryop import Operator
 from .group_element import GroupElement
-from typing import Set, List, Tuple
+from typing import Set, List, Tuple, Union
 from .utils import power_set
 import matplotlib.pyplot as plt
 
 
 class Group:
+    """
+    This class provides a general group class with many corresponding operation on a group.
+    Generally, a group is a set and an operation that combines tow elements of the set
+    to produce a third element of the set which satisfies:
+    0) associativity: (gh)j = g(hj)
+    1) exists identity e: ge = eg = g
+    2) for any element g exists inverse g-1 s.t. g g-1 = g-1 g = e
+    """
     def __init__(self, s: Set[GroupElement], bop: Operator, e: GroupElement):
         """
         Check the set and corresponding operation satisfy the condition to be a group
@@ -119,6 +119,19 @@ class Group:
                 l.append(g)
         return l
 
+    def can_be_subgroup(self, s: Set[GroupElement]) -> Union[bool, Group]:
+        """
+
+        :param s: set of some elements
+        :return: return the subgroup if can be, False otherwise
+        """
+        try:
+            g = Group(set(s), self._bop, self._e)
+        except AssertionError:
+            return False
+        else:
+            return g
+
     def left_coset(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
         """
         :param g: element
@@ -136,7 +149,7 @@ class Group:
         return set([self._op(g, n) for n in N])
 
     def cosets(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
-        # todo
+        # TODO
         pass
 
     def normal_subgroups(self) -> [Group]:

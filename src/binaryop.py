@@ -1,17 +1,15 @@
-"""
-TODO
-"""
 from abc import ABC, abstractmethod
 from .group_element import Integer, GroupElement, Permutation
 from .utils import permute
 
 
 class Operator(ABC):
+    """
+    This class provides a virtual binary operators can be implemented by many ways
+    """
     @abstractmethod
     def op(self, g: GroupElement, h: GroupElement) -> GroupElement:
         pass
-
-# class
 
 
 class Modulo(Operator):

@@ -6,6 +6,10 @@ This project may be useful in teaching and learning group theory.
 ## Usage
 see `examples` folder for some basic usage
 
+## Feature
+* TODO
+* support construction group by quotient and product
+
 ## Core 
 `group.py`
 This file provides abstract group, consists of element defined in `group_element.py` and operation
@@ -18,3 +22,6 @@ This file provides some concrete group elements, e.g. Integer, Permutation.
 This file provides some concrete operations, e.g. Modulo, Permute.
 
 You can define any group, element, operation you want.
+
+`homomorphism.py` TODO
+
