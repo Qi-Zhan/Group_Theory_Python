@@ -46,6 +46,9 @@ class Integer(GroupElement):
     def __str__(self):
         return str(self._i)
 
+    def __repr__(self):
+        return str(self._i)
+
 
 class Permutation(GroupElement):
     def __init__(self, p: Tuple[int]):

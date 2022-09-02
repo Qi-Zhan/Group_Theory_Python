@@ -39,3 +39,4 @@ def power_set(s: Set[GroupElement]) -> Set[Tuple[GroupElement, ...]]:
     s = list(s)
     pt = chain.from_iterable(set(combinations(s, r)) for r in range(len(s) + 1))
     return set(pt)
+

@@ -1,6 +1,6 @@
 import unittest
 from src.group import Group
-from src.std_group_lib import CyclicGroup
+from src.std_group_lib import CyclicGroup, SymmetricGroup
 from src.group_element import Integer
 from src.binaryop import Modulo
 
@@ -38,16 +38,31 @@ class GroupOperatorTestCase(unittest.TestCase):
 
 
 class SubGroupTestCase(unittest.TestCase):
-    def test_cyclic(self):
+    def test_left_right_coset_equal(self):
+        group = CyclicGroup(10)
+        a = group.left_coset(Integer(1), group.elements())
+        b = group.right_coset(Integer(2), group.elements())
+        self.assertEqual(a, b)
+
+    def test_left_right_coset_non_equal(self):
+        # TODO klein4 in S4
+        pass
+
+    def test_normal_subgroup(self):
         s = set()
         for i in range(10):
             s.add(Integer(i))
         g1 = Group(s, Modulo(10), Integer(0))
         subgroups = g1.subgroups()
-        for subgroup in subgroups:
-            print(subgroup)
-        for subgroup in g1.nontrivial_subgroups():
-            print(subgroup)
+
+    def test_cyclic(self):
+        s = set()
+        for i in range(10):
+            s.add(Integer(i))
+        g1 = Group(s, Modulo(10), Integer(0))
+        self.assertEqual(len(g1.subgroups()), 4)
+        self.assertEqual(len(g1.normal_subgroups()), 4)
+        self.assertEqual(len(g1.nontrivial_subgroups()), 2)
 
     def test_permutation(self):
         pass
@@ -60,6 +75,20 @@ class SubGroupTestCase(unittest.TestCase):
         # g1 = Group(s, Modulo(20), Integer(0))
         # subgroups = g1.subgroups()
 
+
+class GenerateTest(unittest.TestCase):
+    def test_cyclic_generate_all(self):
+        """
+        every non identity element in prime order cyclic group is generator
+        """
+        G = CyclicGroup(7)
+        for i in range(1, 7):
+            H = G.generate([Integer(i)])
+            self.assertEqual(G, H)
+
+    def test_permutation_generate_some(self):
+        pass
+        # TODO
 
 if __name__ == '__main__':
     unittest.main()

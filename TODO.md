@@ -6,4 +6,6 @@ TODO list
 * homomorphism between two operators and their inverse
 * quotient group and corresponding binary operation
 * product group and corresponding binary operation
-* **Rubic Group and 3D representation**
+* **Rubik Cube Group and 3D representation**
+* monoid semigroup to decouple class group
+* optimize subgroup algorithm

@@ -8,9 +8,9 @@ Z(n) = {0, 1, ..., n-1} (+ mod n)
 * QuotientGroup
 ...
 """
+from .binaryop import Modulo, Permute
 from .group import Group
-from .group_element import GroupElement, Integer, Permutation
-from .binaryop import Modulo, Operator, Permute
+from .group_element import Integer, Permutation
 from .utils import factor, all_permutations
 
 
