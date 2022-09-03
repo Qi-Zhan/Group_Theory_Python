@@ -55,10 +55,10 @@ class Integer(GroupElement):
 
 
 class Permutation(GroupElement):
-    def __init__(self, p: Tuple[int]):
+    def __init__(self, p: Tuple[int, ...]):
         self._p = p
 
-    def value(self) -> Tuple[int]:
+    def value(self) -> Tuple[int, ...]:
         return self._p
 
     def __eq__(self, other):

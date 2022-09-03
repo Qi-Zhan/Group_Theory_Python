@@ -26,6 +26,7 @@ class Group:
         :param bop: binary operation
         :param e: identity
         """
+        assert e in s
         self._e = e
         self._s = s
         self._bop = bop
@@ -146,7 +147,7 @@ class Group:
         :param N: subset
         :return: Ng = {ng : n ∈ N}
         """
-        return set([self._op(g, n) for n in N])
+        return set([self._op(n, g) for n in N])
 
     def cosets(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
         # TODO
@@ -171,6 +172,18 @@ class Group:
                     l.append(subgroup)
             return l
 
+    def can_be_normal_subgroup(self, N: Set[GroupElement]) -> Union[bool, Group]:
+        try:
+            group = Group(set(N), self._bop, self._e)
+        except AssertionError:
+            return False
+        else:
+            for g in self._s:
+                # print(g, self.left_coset(g, N), self.right_coset(g, N))
+                if self.left_coset(g, N) != self.right_coset(g, N):
+                    return False
+            return group
+
     def nontrivial_subgroups(self) -> [Group]:
         return [g for g in self.subgroups() if g.order() != 1 and g.order() != self.order()]
 
@@ -184,10 +197,10 @@ class Group:
         return self._op(g, h)
 
     def visualize(self):
-        pass
+        raise NotImplemented
 
     def quotient(self, N: Group):
-        # TODO
+        # TODO with cosets and corresponding operator
         pass
 
     def is_abel(self) -> bool:
@@ -227,7 +240,6 @@ class Group:
                         temp.add(ba)
                         diff = True
             s.update(temp)
-        print(s)
         return Group(s, self._bop, self._e)
 
     def __iter__(self):

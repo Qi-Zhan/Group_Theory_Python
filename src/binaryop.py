@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from .group_element import Integer, GroupElement, Permutation, ProductElement
+from .group_element import Integer, GroupElement, Permutation, ProductElement, QuotientElement
 from .utils import permute
 from typing import Tuple
 from itertools import starmap
@@ -81,4 +81,20 @@ class Product(Operator):
             return
 
     def __str__(self):
-        pass
+        '*'.join([str(i) for i in self._op])
+
+
+class Quotient(Operator):
+    def __init__(self, op: Operator):
+        self._op = op
+
+    def op(self, g: QuotientElement, h: QuotientElement) -> QuotientElement:
+        return QuotientElement(self._op.op(g.value(), h.value()), g.normal_elements())
+
+    def __eq__(self, other):
+        if isinstance(other, Quotient):
+            return self._op == other._op
+        return False
+
+    def __str__(self):
+        return "/"

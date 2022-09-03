@@ -1,7 +1,7 @@
 import unittest
 from src.group import Group
 from src.std_group_lib import CyclicGroup, SymmetricGroup, ProductGroup
-from src.group_element import Integer
+from src.group_element import Integer, Permutation
 from src.binaryop import Modulo
 
 
@@ -44,16 +44,19 @@ class SubGroupTestCase(unittest.TestCase):
         b = group.right_coset(Integer(2), group.elements())
         self.assertEqual(a, b)
 
-    def test_left_right_coset_non_equal(self):
-        # TODO klein4 in S4
-        pass
+    def test_normal_subgroup_trivial(self):
+        group = CyclicGroup(10)
+        normal = group.can_be_normal_subgroup({Integer(0), Integer(5)})
+        self.assertNotEqual(False, normal)
 
-    def test_normal_subgroup(self):
-        s = set()
-        for i in range(10):
-            s.add(Integer(i))
-        g1 = Group(s, Modulo(10), Integer(0))
-        subgroups = g1.subgroups()
+    def test_normal_subgroup_nontrivial(self):
+        group = SymmetricGroup(3)
+        normal = group.can_be_normal_subgroup({Permutation((1, 2, 3)), Permutation((2, 3, 1)), Permutation((3, 1, 2))})
+        self.assertNotEqual(False, normal)
+        self.assertIn(normal, group.nontrivial_subgroups())
+        s = {Permutation((1, 2, 3)), Permutation((1, 3, 2))}
+        self.assertNotEqual(False, group.can_be_subgroup(s))
+        self.assertEqual(False, group.can_be_normal_subgroup(s))
 
     def test_cyclic(self):
         s = set()
@@ -87,13 +90,26 @@ class GenerateTest(unittest.TestCase):
             self.assertEqual(G, H)
 
     def test_permutation_generate_some(self):
-        pass
+        G = SymmetricGroup(3)
+        self.assertEqual(2, G.generate([Permutation((2, 1, 3))]).order())
+        self.assertEqual(3, G.generate([Permutation((2, 3, 1))]).order())
+        self.assertEqual(1, G.generate([Permutation((1, 2, 3))]).order())
+
 
 
 class ProductGroupTest(unittest.TestCase):
     def test_basic(self):
         g = ProductGroup([CyclicGroup(2), CyclicGroup(2)])
         self.assertEqual(4, g.order())
+
+
+class QuotientGroupTest(unittest.TestCase):
+    def test_klein(self):
+        # TODO
+        pass
+
+    def test_basic(self):
+        pass
 
 
 if __name__ == '__main__':
