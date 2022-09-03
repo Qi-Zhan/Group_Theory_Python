@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import abstractmethod, ABC
-from typing import Tuple
+from typing import Tuple, Set
 
 
 class GroupElement(ABC):
@@ -121,3 +121,30 @@ class ProductElement(GroupElement):
 
     def __repr__(self):
         return str(self._p)
+
+
+class QuotientElement(GroupElement):
+    def value(self) -> GroupElement:
+        return self._repr
+
+    def normal_elements(self) -> Set[GroupElement]:
+        return self._s
+
+    def __init__(self, rep: GroupElement, s: Set[GroupElement]):
+        self._s = s  # N normal subgroup
+        self._repr = rep  # aN
+
+    def __str__(self):
+        return str(self._repr)
+
+    def __repr__(self):
+        return self._s
+
+    def __hash__(self):
+        return hash(self._repr)
+
+    def __eq__(self, other):
+        if isinstance(other, QuotientElement):
+            if other._repr in self._s and self._repr in other._s:
+                return True
+        return False

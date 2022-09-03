@@ -186,6 +186,10 @@ class Group:
     def visualize(self):
         pass
 
+    def quotient(self, N: Group):
+        # TODO
+        pass
+
     def is_abel(self) -> bool:
         """
         A group is called abel group if for all a, b in group, ab = ba (commutativity)
