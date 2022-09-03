@@ -26,7 +26,6 @@ class Group:
         :param bop: binary operation
         :param e: identity
         """
-        assert e in s
         self._e = e
         self._s = s
         self._bop = bop
@@ -36,12 +35,12 @@ class Group:
         self.check_closed()
         # self.check_assoc()
 
-    def check_closed(self):
+    def check_closed(self) -> None:
         for i in self._s:
             for j in self._s:
                 assert self._op(i, j) in self._s, ("element ", i, j, "do not in set")
 
-    def check_assoc(self):
+    def check_assoc(self) -> None:
         for i in self._s:
             for j in self._s:
                 for k in self._s:
@@ -49,7 +48,7 @@ class Group:
                     h = self._op(self._op(i, j), k)
                     assert h == g, "violate associativity"
 
-    def check_inverse(self):
+    def check_inverse(self) -> None:
         for i in self._s:
             flag = False
             for j in self._s:
@@ -58,7 +57,7 @@ class Group:
                     break
             assert flag, ("element " + str(i) + "does not have inverse")
 
-    def check_e(self):
+    def check_e(self) -> None:
         e = self._e
         for i in self._s:
             assert self._op(i, e) == i, ("element ", i, e, "not equal", i)
@@ -178,13 +177,16 @@ class Group:
     def elements(self) -> Set[GroupElement]:
         return self._s
 
+    def operator(self) -> Operator:
+        return self._bop
+
     def bop(self, g: GroupElement, h: GroupElement) -> GroupElement:
         return self._op(g, h)
 
     def visualize(self):
         pass
 
-    def is_abel(self):
+    def is_abel(self) -> bool:
         """
         A group is called abel group if for all a, b in group, ab = ba (commutativity)
         :return:

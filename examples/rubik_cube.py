@@ -70,4 +70,4 @@ def generate_rubik_cube(nx, ny, nz):
 
 
 if __name__ == '__main__':
-    generate_rubik_cube(4, 4, 4)
+    generate_rubik_cube(3, 3, 3)

@@ -1,6 +1,6 @@
 import unittest
 from src.group import Group
-from src.std_group_lib import CyclicGroup, SymmetricGroup
+from src.std_group_lib import CyclicGroup, SymmetricGroup, ProductGroup
 from src.group_element import Integer
 from src.binaryop import Modulo
 
@@ -88,7 +88,13 @@ class GenerateTest(unittest.TestCase):
 
     def test_permutation_generate_some(self):
         pass
-        # TODO
+
+
+class ProductGroupTest(unittest.TestCase):
+    def test_basic(self):
+        g = ProductGroup([CyclicGroup(2), CyclicGroup(2)])
+        self.assertEqual(4, g.order())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from .group_element import Integer, GroupElement, Permutation
+from .group_element import Integer, GroupElement, Permutation, ProductElement
 from .utils import permute
+from typing import Tuple
+from itertools import starmap
 
 
 class Operator(ABC):
@@ -9,6 +11,14 @@ class Operator(ABC):
     """
     @abstractmethod
     def op(self, g: GroupElement, h: GroupElement) -> GroupElement:
+        pass
+
+    @abstractmethod
+    def __eq__(self, other):
+        pass
+
+    @abstractmethod
+    def __str__(self):
         pass
 
 
@@ -53,3 +63,22 @@ class Permute(Operator):
 
     def __str__(self):
         return "permutation"
+
+
+class Product(Operator):
+    def __init__(self, ops: Tuple[Operator, ...]):
+        self._op: Tuple[Operator] = ops
+
+    def op(self, g: ProductElement, h: ProductElement) -> ProductElement:
+        # to check type
+        def map_one(g1: GroupElement, g2: GroupElement, op1: Operator) -> GroupElement:
+            return op1.op(g1, g2)
+        l: Tuple[GroupElement] = tuple(starmap(map_one, zip(g.value(), h.value(), self._op)))
+        return ProductElement(l)
+
+    def __eq__(self, other):
+        if isinstance(other, Product):
+            return
+
+    def __str__(self):
+        pass

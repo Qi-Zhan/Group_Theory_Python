@@ -30,10 +30,13 @@ class PermuteTest(unittest.TestCase):
         self.assertIn((3, 2, 1), all)
 
 
-class FactorTest(unittest.TestCase):
-    def test_basic(self):
+class SimpleMethodTest(unittest.TestCase):
+    def test_factor(self):
         self.assertEqual(factor(2), [1, 2])
         self.assertEqual(factor(10), [1, 2, 5, 10])
+
+    def test_reduce(self):
+        self.assertEqual(24, reduce_multi([1, 2, 3, 4]))
 
 
 class PowerSetTest(unittest.TestCase):
@@ -51,6 +54,29 @@ class PowerSetTest(unittest.TestCase):
     def test_empty(self):
         pass
         # self.assertEqual(power_set(set()), set())
+
+
+class ProductTest(unittest.TestCase):
+    def test_basic(self):
+        s1 = {1, 2, 3}
+        s2 = {'a', 'b'}
+        s3 = {4, 5}
+        res = cartesian_product([s1, s2, s3])
+        self.assertIn((1, 'b', 4), res)
+        self.assertIn((1, 'a', 4), res)
+        self.assertIn((2, 'b', 4), res)
+        self.assertIn((2, 'a', 4), res)
+        self.assertIn((3, 'a', 4), res)
+        self.assertIn((3, 'b', 4), res)
+        self.assertIn((1, 'b', 5), res)
+        self.assertIn((1, 'a', 5), res)
+
+    def test_empty(self):
+        s1 = {1, 2, 3}
+        s2 = {'a', 'b'}
+        s3 = {}
+        res = cartesian_product([s1, s2, s3])
+        self.assertEqual(len(res), 0)
 
 
 if __name__ == '__main__':

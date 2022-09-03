@@ -8,10 +8,10 @@ Z(n) = {0, 1, ..., n-1} (+ mod n)
 * QuotientGroup
 ...
 """
-from .binaryop import Modulo, Permute
+from .binaryop import Modulo, Permute, Product
 from .group import Group
-from .group_element import Integer, Permutation
-from .utils import factor, all_permutations
+from .group_element import Integer, Permutation, ProductElement
+from .utils import *
 
 
 class CyclicGroup(Group):
@@ -51,25 +51,41 @@ class PermutationGroup(Group):
         pass
 
 
-class KleinFourGroup(Group):
+class ProductGroup(Group):
+    def __init__(self, groups: [Group]):
+        self._groups: [Group] = groups
+        eye = map(lambda x: x.eye(), groups)
+        eye = ProductElement(tuple(eye))
+        elements = map(lambda x: x.elements(), groups)
+        elements = cartesian_product(elements)
+        elements = set([ProductElement(i) for i in elements])
+        op = map(lambda x: x.operator(), groups)
+        op = Product(tuple(op))
+        super(ProductGroup, self).__init__(elements, op, eye)
+
+    def order(self) -> int:
+        return reduce_multi([x.order() for x in self._groups])
+
+    def is_abel(self) -> bool:
+        for g in self._groups:
+            if not g.is_abel():
+                return False
+        return True
+
+
+class KleinFourGroup(ProductGroup):
+    """
+    The smallest group which is not cyclic group
     """
 
-    """
-    # TODO Z2 * Z2 ~ klein klein group in permutation
-    def __init__(self):
-        pass
+    def __init__(self, type_="permute"):
+        super(KleinFourGroup, self).__init__([CyclicGroup(2), CyclicGroup(2)])
 
     def order(self) -> int:
         return 4
 
     def is_abel(self):
         return True
-
-
-class ProductGroup(Group):
-    def __init__(self, groups: [Group]):
-        # TODO
-        pass
 
 
 class QuotientGroup(Group):

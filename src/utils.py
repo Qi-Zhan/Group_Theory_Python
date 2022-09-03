@@ -1,7 +1,7 @@
 import math
-from typing import Tuple, List, Set
-from itertools import chain, combinations, permutations
-
+from typing import Tuple, List, Set, Any
+from itertools import chain, combinations, permutations, product
+from functools import reduce
 from src.group_element import GroupElement
 
 
@@ -20,7 +20,7 @@ def factor(n: int) -> List[int]:
 
 
 def all_permutations(n: int) -> [Tuple[int, ...]]:
-    return list(permutations(range(1, n+1), n))
+    return list(permutations(range(1, n + 1), n))
 
 
 def permute(f: Tuple[int, ...], g: Tuple[int, ...]) -> Tuple[int, ...]:
@@ -40,3 +40,10 @@ def power_set(s: Set[GroupElement]) -> Set[Tuple[GroupElement, ...]]:
     pt = chain.from_iterable(set(combinations(s, r)) for r in range(len(s) + 1))
     return set(pt)
 
+
+def cartesian_product(s: [Set[Any]]) -> Set[Any]:
+    return set(product(*s))
+
+
+def reduce_multi(l: [int]) -> int:
+    return reduce(lambda x, y: x * y, l, 1)

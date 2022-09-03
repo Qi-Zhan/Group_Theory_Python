@@ -7,8 +7,9 @@ This project may be useful in teaching and learning group theory.
 see `examples` folder for some basic usage
 
 ## Feature
-* TODO
+* support general group representation and some typical group
 * support construction group by quotient and product
+* support homomorphism, group action ... TODO
 
 ## Core 
 `group.py`
