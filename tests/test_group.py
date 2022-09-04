@@ -72,10 +72,14 @@ class SubGroupTestCase(unittest.TestCase):
 
 
 class DihedralGroupTest(unittest.TestCase):
-    def test_basic(self):
+    def test_odd(self):
         G = DihedralGroup(3)
         self.assertEqual(G.order(), 6)
         self.assertEqual(len(G.nontrivial_subgroups()), 4)
+
+    def test_even(self):
+        G = DihedralGroup(4)
+        self.assertEqual(8, G.order())
 
 
 class GenerateTest(unittest.TestCase):

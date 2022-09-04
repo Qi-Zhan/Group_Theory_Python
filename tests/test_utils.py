@@ -40,7 +40,7 @@ class SimpleMethodTest(unittest.TestCase):
 
     def test_symmetric(self):
         self.assertEqual((1, 3, 2), reflection_n(1, 3))
-        self.assertEqual((3, 2, 1, 4), reflection_n(2, 4))
+        self.assertEqual((2, 1, 4, 3), reflection_n(2, 4))
         self.assertEqual((4, 3, 2, 1, 5), reflection_n(5, 5))
 
     def test_rotation(self):

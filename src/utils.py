@@ -54,4 +54,8 @@ def rotation_n(order: int, n: int) -> Tuple[int, ...]:
 
 
 def reflection_n(order: int, n: int) -> Tuple[int, ...]:
-    return tuple(map(lambda x: x + 1, [(2 * (order - 1) - i + n) % n for i in range(n)]))
+    if n % 2 == 1:
+        return tuple(map(lambda x: x + 1, [(2 * (order - 1) - i + n) % n for i in range(n)]))
+    else:
+        return tuple(map(lambda x: x + 1, [((order - 1) - i + n) % n for i in range(n)]))
+

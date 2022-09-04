@@ -104,10 +104,15 @@ class DihedralGroup(Group):
         self._n = n
         rotation = {Permutation(rotation_n(i, n)) for i in range(n)}
         reflection = {Permutation(reflection_n(i, n)) for i in range(1, n + 1)}
-        super(DihedralGroup, self).__init__(rotation.union(reflection), Permute(), Permutation(tuple([i for i in range(1, n+1)])))
+        super(DihedralGroup, self).__init__(rotation.union(reflection), Permute(),
+                                            Permutation(tuple([i for i in range(1, n+1)])))
 
     def is_abel(self) -> bool:
         return self._n <= 2
+
+    def order(self) -> int:
+        assert len(self._s) == 2 * self._n
+        return 2 * self._n
 
     def __str__(self):
         return f"D({self._n})"

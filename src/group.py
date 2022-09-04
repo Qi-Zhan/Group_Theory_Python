@@ -39,7 +39,7 @@ class Group:
     def check_closed(self) -> None:
         for i in self._s:
             for j in self._s:
-                assert self._op(i, j) in self._s, ("element ", i, j, "do not in set")
+                assert self._op(i, j) in self._s, f"{i} * {j} = {self._op(i, j)} not in set"
 
     def check_assoc(self) -> None:
         for i in self._s:
@@ -56,13 +56,13 @@ class Group:
                 if self._op(i, j) == self._e:
                     flag = True
                     break
-            assert flag, ("element " + str(i) + "does not have inverse")
+            assert flag, f"There is not exist inverse for element {i} "
 
     def check_e(self) -> None:
         e = self._e
         for i in self._s:
-            assert self._op(i, e) == i, ("element ", i, e, "not equal", i)
-            assert self._op(e, i) == i, ("element ", e, i, "not equal", i)
+            assert self._op(i, e) == i, f"{i} * {e} != {e}"
+            assert self._op(e, i) == i, f"{e} * {i} != {i}"
 
     def eye(self) -> GroupElement:
         return self._e
