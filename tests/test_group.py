@@ -62,6 +62,7 @@ class SubGroupTestCase(unittest.TestCase):
         for i in range(10):
             s.add(Integer(i))
         g1 = Group(s, Modulo(10), Integer(0))
+        print(g1)
         self.assertEqual(len(g1.subgroups()), 4)
         self.assertEqual(len(g1.normal_subgroups()), 4)
         self.assertEqual(len(g1.nontrivial_subgroups()), 2)

@@ -44,9 +44,9 @@ class Modulo(Operator):
 
     def __str__(self):
         if self._c == "PLUS":
-            return "+ mod " + str(self._m)
+            return f"+ mod {self._m}"
         elif self._c == "MULTI":
-            return "* mod " + str(self._m)
+            return f"* mod {self._m}"
         else:
             raise NotImplemented
 
@@ -81,7 +81,7 @@ class Product(Operator):
             return
 
     def __str__(self):
-        '*'.join([str(i) for i in self._op])
+        return '*'.join([str(i) for i in self._op])
 
 
 class Quotient(Operator):
@@ -97,4 +97,4 @@ class Quotient(Operator):
         return False
 
     def __str__(self):
-        return "quotient " + str(self._op)
+        return f"quotient {self._op}"

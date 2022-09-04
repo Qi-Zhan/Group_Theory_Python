@@ -272,8 +272,8 @@ class Group:
         return item in self._s
 
     def __str__(self):
-        s = [str(e) for e in self._s]
-        return "{" + ",".join(s) + "} under " + str(self._bop)
+        s = ",".join([str(e) for e in self._s])
+        return f"{{{s}}} under {self._bop}"
 
     def __eq__(self, other):
         if isinstance(other, Group):

@@ -29,7 +29,7 @@ class CyclicGroup(Group):
         return True
 
     def __str__(self):
-        return "Z(" + str(self.order()) + ")"
+        return f"Z({self.order()})"
 
 
 class SymmetricGroup(Group):
@@ -44,7 +44,7 @@ class SymmetricGroup(Group):
         return self._n == 1
 
     def __str__(self):
-        return "S(" + str(self._n) + ")"
+        return f"S({self._n})"
 
 
 class PermutationGroup(Group):
@@ -108,3 +108,6 @@ class DihedralGroup(Group):
 
     def is_abel(self) -> bool:
         return self._n <= 2
+
+    def __str__(self):
+        return f"D({self._n})"
