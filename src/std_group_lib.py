@@ -88,7 +88,6 @@ class KleinFourGroup(ProductGroup):
         return True
 
 
-# class QuotientGroup(Group):
-#     def __init__(self, G: Group, N: Group):
-#         # TODO
-#         pass
+class DihedralGroup(Group):
+    pass
+    # TODO

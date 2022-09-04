@@ -7,6 +7,7 @@ class GroupElement(ABC):
     """
     This class provides a virtual group element can be implemented by many ways
     """
+
     @abstractmethod
     def value(self):
         pass
@@ -130,21 +131,25 @@ class QuotientElement(GroupElement):
     def normal_elements(self) -> Set[GroupElement]:
         return self._s
 
-    def __init__(self, rep: GroupElement, s: Set[GroupElement]):
+    def __init__(self, rep: GroupElement, s: Set[GroupElement], op):
         self._s = s  # N normal subgroup
         self._repr = rep  # aN
+        self._op = op.op
 
     def __str__(self):
         return str(self._repr)
 
     def __repr__(self):
-        return self._s
+        return str(self._repr) + " : " + str(self._s)
 
     def __hash__(self):
-        return hash(self._repr)
+        return hash(frozenset({self._op(self._repr, n) for n in self._s}))
 
     def __eq__(self, other):
         if isinstance(other, QuotientElement):
-            if other._repr in self._s and self._repr in other._s:
-                return True
+            if other._s == self._s:
+                aN = {self._op(self._repr, n) for n in self._s}
+                bN = {other._op(other._repr, n) for n in other._s}
+                if aN == bN:
+                    return True
         return False

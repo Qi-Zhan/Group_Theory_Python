@@ -5,8 +5,8 @@ from typing import Set, List, Tuple, Union
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .binaryop import Operator
-from .group_element import GroupElement
+from .binaryop import Operator, Quotient
+from .group_element import GroupElement, QuotientElement
 from .utils import power_set
 
 
@@ -122,7 +122,6 @@ class Group:
 
     def can_be_subgroup(self, s: Set[GroupElement]) -> Union[bool, Group]:
         """
-
         :param s: set of some elements
         :return: return the subgroup if can be, False otherwise
         """
@@ -149,11 +148,21 @@ class Group:
         """
         return set([self._op(n, g) for n in N])
 
-    def cosets(self, g: GroupElement, N: Set[GroupElement]) -> Set[GroupElement]:
-        # TODO
-        pass
+    def cosets(self, N: Set[GroupElement]) -> [Set[GroupElement]]:
+        cosets_ = []
+        for g in self._s:
+            left = self.left_coset(g, N)
+            if left not in cosets_:
+                cosets_.append(left)
+        return cosets_
 
     def normal_subgroups(self) -> [Group]:
+        """
+        A normal subgroup is a subgroup N, for any element g in G, gN = Ng in set meaning
+        see definition of gN and Ng in left_coset and right_coset
+        Notion: N ◁ G
+        :return: all normal subgroups in the group
+        """
         if self.is_abel():  # subgroup in abel group must be normal subgroup
             return self.subgroups()
         else:
@@ -173,6 +182,10 @@ class Group:
             return l
 
     def can_be_normal_subgroup(self, N: Set[GroupElement]) -> Union[bool, Group]:
+        """
+        :param N: set of some elements
+        :return: return the normal subgroup if the set can be, False otherwise
+        """
         try:
             group = Group(set(N), self._bop, self._e)
         except AssertionError:
@@ -185,6 +198,10 @@ class Group:
             return group
 
     def nontrivial_subgroups(self) -> [Group]:
+        """
+        nontrivial subgroup is a subgroup which is not identity group or the whole group itself
+        :return:
+        """
         return [g for g in self.subgroups() if g.order() != 1 and g.order() != self.order()]
 
     def elements(self) -> Set[GroupElement]:
@@ -199,9 +216,15 @@ class Group:
     def visualize(self):
         raise NotImplemented
 
-    def quotient(self, N: Group):
-        # TODO with cosets and corresponding operator
-        pass
+    def quotient(self, N: Set[GroupElement]) -> Union[Group, bool]:
+        N = self.can_be_normal_subgroup(N)
+        if not N:
+            return False
+        cosets_ = self.cosets(N.elements())
+        new_elements = set([QuotientElement(next(iter(i)), N.elements(), self._bop) for i in cosets_])
+        e = QuotientElement(self._e, self.left_coset(self._e, N.elements()), self._bop)
+        G_mod_N = Group(new_elements, Quotient(self._bop), e)
+        return G_mod_N
 
     def is_abel(self) -> bool:
         """
@@ -250,7 +273,7 @@ class Group:
 
     def __str__(self):
         s = [str(e) for e in self._s]
-        return "{" + ",".join(s) + "}"
+        return "{" + ",".join(s) + "} under " + str(self._bop)
 
     def __eq__(self, other):
         if isinstance(other, Group):

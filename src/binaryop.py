@@ -89,7 +89,7 @@ class Quotient(Operator):
         self._op = op
 
     def op(self, g: QuotientElement, h: QuotientElement) -> QuotientElement:
-        return QuotientElement(self._op.op(g.value(), h.value()), g.normal_elements())
+        return QuotientElement(self._op.op(g.value(), h.value()), g.normal_elements(), self._op)
 
     def __eq__(self, other):
         if isinstance(other, Quotient):
@@ -97,4 +97,4 @@ class Quotient(Operator):
         return False
 
     def __str__(self):
-        return "/"
+        return "quotient " + str(self._op)

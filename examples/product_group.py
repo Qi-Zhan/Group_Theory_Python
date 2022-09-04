@@ -7,5 +7,6 @@ def main():
     g = KleinFourGroup("product")
     g.print_table()
 
+
 if __name__ == '__main__':
     main()

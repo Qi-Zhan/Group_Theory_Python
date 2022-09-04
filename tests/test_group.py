@@ -105,11 +105,15 @@ class ProductGroupTest(unittest.TestCase):
 
 class QuotientGroupTest(unittest.TestCase):
     def test_klein(self):
-        # TODO
-        pass
+        G = SymmetricGroup(4)
+        N = {Permutation((1, 2, 3, 4)), Permutation((2, 1, 4, 3)), Permutation((3, 4, 1, 2)), Permutation((4, 3 ,2 ,1))}
+        G_mod_N = G.quotient(N)
+        self.assertEqual(G_mod_N.order(), G.order()//len(N))  # Lagrange Theorem
 
     def test_basic(self):
-        pass
+        G = CyclicGroup(10)
+        G_mod_N = G.quotient({Integer(0), Integer(5)})
+        self.assertEqual(2, G.order()//G_mod_N.order())  # Lagrange Theorem
 
 
 if __name__ == '__main__':
