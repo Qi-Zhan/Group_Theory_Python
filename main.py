@@ -1,6 +1,6 @@
 
 
 if __name__ == '__main__':
-    # TODO provide interactive cli
-    print('PyCharm')
+    # provide interactive cli
+    print('Welcome to Group Theory World')
 

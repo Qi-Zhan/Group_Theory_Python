@@ -1,6 +1,5 @@
 import unittest
-from src.group import Group
-from src.std_group_lib import CyclicGroup, SymmetricGroup, ProductGroup
+from src.std_group_lib import *
 from src.group_element import Integer, Permutation
 from src.binaryop import Modulo
 
@@ -70,13 +69,12 @@ class SubGroupTestCase(unittest.TestCase):
     def test_permutation(self):
         pass
 
-    def test_time(self):
-        pass
-        # s = set()
-        # for i in range(20):
-        #     s.add(Integer(i))
-        # g1 = Group(s, Modulo(20), Integer(0))
-        # subgroups = g1.subgroups()
+
+class DihedralGroupTest(unittest.TestCase):
+    def test_basic(self):
+        G = DihedralGroup(3)
+        self.assertEqual(G.order(), 6)
+        self.assertEqual(len(G.nontrivial_subgroups()), 4)
 
 
 class GenerateTest(unittest.TestCase):
@@ -96,7 +94,6 @@ class GenerateTest(unittest.TestCase):
         self.assertEqual(1, G.generate([Permutation((1, 2, 3))]).order())
 
 
-
 class ProductGroupTest(unittest.TestCase):
     def test_basic(self):
         g = ProductGroup([CyclicGroup(2), CyclicGroup(2)])
@@ -106,14 +103,16 @@ class ProductGroupTest(unittest.TestCase):
 class QuotientGroupTest(unittest.TestCase):
     def test_klein(self):
         G = SymmetricGroup(4)
-        N = {Permutation((1, 2, 3, 4)), Permutation((2, 1, 4, 3)), Permutation((3, 4, 1, 2)), Permutation((4, 3 ,2 ,1))}
+        N = {Permutation((1, 2, 3, 4)), Permutation((2, 1, 4, 3)), Permutation((3, 4, 1, 2)), Permutation((4, 3, 2, 1))}
         G_mod_N = G.quotient(N)
-        self.assertEqual(G_mod_N.order(), G.order()//len(N))  # Lagrange Theorem
+        self.assertEqual(G_mod_N.order(), G.order() // len(N))  # Lagrange Theorem
 
     def test_basic(self):
         G = CyclicGroup(10)
         G_mod_N = G.quotient({Integer(0), Integer(5)})
-        self.assertEqual(2, G.order()//G_mod_N.order())  # Lagrange Theorem
+        self.assertEqual(2, G.order() // G_mod_N.order())  # Lagrange Theorem
+        G_mod_N = G.quotient(G.elements())  # G / G = {e}
+        self.assertEqual(1, G_mod_N.order())
 
 
 if __name__ == '__main__':

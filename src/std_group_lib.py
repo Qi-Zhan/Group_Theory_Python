@@ -6,6 +6,7 @@ Z(n) = {0, 1, ..., n-1} (+ mod n)
 * PermutationGroup
 * ProductGroup
 * QuotientGroup
+* DihedralGroup
 ...
 """
 from .binaryop import Modulo, Permute, Product
@@ -75,7 +76,12 @@ class ProductGroup(Group):
 
 class KleinFourGroup(ProductGroup):
     """
-    The smallest group which is not cyclic group
+    The smallest non cyclic group
+        e a b c
+    e   e a b c
+    a   a e c b
+    b   b c e a
+    c   c b a e
     """
 
     def __init__(self, type_="permute"):
@@ -89,5 +95,16 @@ class KleinFourGroup(ProductGroup):
 
 
 class DihedralGroup(Group):
-    pass
-    # TODO
+    """
+    A Dihedral Group is the group of symmetries of a regular polygon,
+    which contains reflection and rotation.
+    Dn = <r, s| r^n = s^2 = (sr)^2 =1>
+    """
+    def __init__(self, n: int):
+        self._n = n
+        rotation = {Permutation(rotation_n(i, n)) for i in range(n)}
+        reflection = {Permutation(reflection_n(i, n)) for i in range(1, n + 1)}
+        super(DihedralGroup, self).__init__(rotation.union(reflection), Permute(), Permutation(tuple([i for i in range(1, n+1)])))
+
+    def is_abel(self) -> bool:
+        return self._n <= 2

@@ -45,5 +45,13 @@ def cartesian_product(s: [Set[Any]]) -> Set[Any]:
     return set(product(*s))
 
 
-def reduce_multi(l: [int]) -> int:
-    return reduce(lambda x, y: x * y, l, 1)
+def reduce_multi(factors: [int]) -> int:
+    return reduce(lambda x, y: x * y, factors, 1)
+
+
+def rotation_n(order: int, n: int) -> Tuple[int, ...]:
+    return tuple(map(lambda x: x + 1, [(order + i) % n for i in range(n)]))
+
+
+def reflection_n(order: int, n: int) -> Tuple[int, ...]:
+    return tuple(map(lambda x: x + 1, [(2 * (order - 1) - i + n) % n for i in range(n)]))
