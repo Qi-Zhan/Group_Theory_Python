@@ -7,7 +7,7 @@ This project may be useful in teaching and learning group theory.
 see `examples` folder for some basic usage
 
 ## Feature
-* support general group representation and some typical group
+* support general group representation and some built-in groups
 * support construction group by quotient and product
 * support homomorphism, group action ... TODO
 
@@ -24,5 +24,6 @@ This file provides some concrete operations, e.g. Modulo, Permute.
 
 You can define any group, element, operation you want.
 
-`homomorphism.py` TODO
+`homomorphism.py` 
+This file provides abstract homomorphism and corresponding property such as kernel, image ...  
 
