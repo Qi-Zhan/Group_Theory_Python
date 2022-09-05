@@ -137,10 +137,10 @@ class QuotientElement(GroupElement):
         self._op = op.op
 
     def __str__(self):
-        return str(self._repr)
+        return repr(self)
 
     def __repr__(self):
-        return str(self._repr) + " : " + str(self._s)
+        return f"representation {self._repr} : {self._s}"
 
     def __hash__(self):
         return hash(frozenset({self._op(self._repr, n) for n in self._s}))

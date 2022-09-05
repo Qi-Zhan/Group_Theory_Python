@@ -48,6 +48,12 @@ class SimpleMethodTest(unittest.TestCase):
         self.assertEqual((2, 3, 1), rotation_n(1, 3))
         self.assertEqual((3, 1, 2), rotation_n(2, 3))
 
+    def test_parity(self):
+        self.assertEqual(0, parity_permutation((1, 2, 3)))
+        self.assertEqual(0, parity_permutation((2, 1, 4, 3)))
+        self.assertEqual(1, parity_permutation((1, 3, 2)))
+        self.assertEqual(1, parity_permutation((2, 1, 3, 4)))
+
 
 class PowerSetTest(unittest.TestCase):
     def test_basic(self):

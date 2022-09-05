@@ -59,3 +59,13 @@ def reflection_n(order: int, n: int) -> Tuple[int, ...]:
     else:
         return tuple(map(lambda x: x + 1, [((order - 1) - i + n) % n for i in range(n)]))
 
+
+def parity_permutation(p: Tuple[int, ...]) -> int:
+    """
+    :param p: permutation
+    :return: 1 if odd permutation, 0 if even permutation
+    """
+    count = 0
+    for i, num in enumerate(p, start=1):
+        count += sum(num > num2 for num2 in p[i:])
+    return count % 2

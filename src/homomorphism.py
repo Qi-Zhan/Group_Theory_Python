@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Dict, Set
 from .group_element import GroupElement
 from .group import Group
@@ -40,11 +41,11 @@ class Homomorphism:
 
     def kernel(self) -> Set[GroupElement]:
         """
-        ker(h) = { u ∈ G: h(u) = e }
-        ker always be a subgroup of G
+        ker(f) = { u ∈ G: f(u) = e }
+        kernel will always be a normal subgroup of G
         :return: kernel of the homomorphism
         """
-        return {i for i in self._H if self._map[i] == self._H.eye()}
+        return {i for i in self._G if self._map[i] == self._H.eye()}
 
     def image(self) -> Set[GroupElement]:
         """
@@ -53,6 +54,27 @@ class Homomorphism:
         :return: image of the homomorphism
         """
         return {self._map[i] for i in self._G}
+
+    def first_isomorphism_theorem(self) -> Homomorphism:
+        """
+        f : G -> H be a homomorphism, then
+        1) the kernel is a normal subgroup of G
+        2) the image is a subgroup of H
+        3) the image is isomorphic to the quotient group G/ker
+        :return: the isomorphism
+        """
+        ker = self.kernel()
+        img = self.image()
+        quotient_group = self._G.quotient(ker)
+        assert quotient_group is not False  # kernel must be a normal subgroup so quotient must exist
+        img = self._H.can_be_subgroup(img)
+        assert img is not False  # image must be a subgroup
+        new_map = {}
+        for element in quotient_group:  # g(aN) = g(a)
+            new_map[element] = self._map[element.value()]
+        hom = Homomorphism(quotient_group, img, new_map)
+        assert hom.is_isomorphism() is True
+        return hom
 
     def maps_to(self, g: GroupElement) -> GroupElement:
         return self._map[g]
@@ -67,6 +89,5 @@ class Homomorphism:
         pass
 
     def print_table(self):
-        pass
-
-
+        for key in self._map:
+            print(key, "->", self._map[key])
