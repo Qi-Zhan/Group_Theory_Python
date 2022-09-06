@@ -1,7 +1,6 @@
 import unittest
+
 from src.std_group_lib import *
-from src.group_element import Integer, Permutation
-from src.binaryop import Modulo
 
 
 class GroupOperatorTestCase(unittest.TestCase):

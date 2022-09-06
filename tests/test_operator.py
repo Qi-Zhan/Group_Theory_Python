@@ -1,4 +1,5 @@
 import unittest
+
 from src.binaryop import Modulo, Product
 from src.group_element import Integer, ProductElement
 

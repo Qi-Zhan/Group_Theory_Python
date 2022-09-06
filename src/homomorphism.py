@@ -1,7 +1,9 @@
 from __future__ import annotations
+
 from typing import Dict, Set
-from .group_element import GroupElement
+
 from .group import Group
+from .group_element import GroupElement
 
 
 class Homomorphism:

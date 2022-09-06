@@ -1,5 +1,6 @@
-from src.std_group_lib import SymmetricGroup
+import context
 from src.group_element import Permutation
+from src.std_group_lib import SymmetricGroup
 
 
 def main():

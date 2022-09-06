@@ -1,3 +1,4 @@
+import context
 from src.std_group_lib import SymmetricGroup
 
 

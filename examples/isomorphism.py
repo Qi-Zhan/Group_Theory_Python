@@ -1,6 +1,7 @@
+import context
+from src.group_element import Integer, Permutation
 from src.homomorphism import Homomorphism
 from src.std_group_lib import CyclicGroup, SymmetricGroup
-from src.group_element import Integer, Permutation
 from src.utils import parity_permutation
 
 """

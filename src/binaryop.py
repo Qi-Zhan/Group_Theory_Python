@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
+from itertools import starmap
+from typing import Tuple
+
 from .group_element import Integer, GroupElement, Permutation, ProductElement, QuotientElement
 from .utils import permute
-from typing import Tuple
-from itertools import starmap
 
 
 class Operator(ABC):

@@ -1,7 +1,8 @@
 import math
-from typing import Tuple, List, Set, Any
-from itertools import chain, combinations, permutations, product
 from functools import reduce
+from itertools import chain, combinations, permutations, product
+from typing import Tuple, List, Set, Any
+
 from src.group_element import GroupElement
 
 

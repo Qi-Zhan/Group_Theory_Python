@@ -1,6 +1,7 @@
 import unittest
-from src.utils import *
+
 from src.group_element import Integer
+from src.utils import *
 
 
 class IsPrimeTest(unittest.TestCase):

@@ -1,5 +1,5 @@
 import unittest
-from src.group import *
+
 from src.homomorphism import *
 from src.std_group_lib import *
 
